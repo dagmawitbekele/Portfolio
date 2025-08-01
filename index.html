@@ -5,10 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portfolio</title>
   <link rel="stylesheet" href="style.css" />
-  <!-- Font Awesome for social icons -->
 </head>
 <body>
-
   <!-- Navbar -->
   <nav class="navbar">
      <div class="logo"><h2>Db</h2></div>
@@ -27,16 +25,18 @@
     <div class="hero-text">
       <p>WELCOME TO MY WORLD ✨</p>
       <h1>Hi, I'm <strong>Dagmawit Bekele</strong></h1>
-      <h1><span>Web Developer</span></h1>
+      <h1>Web Developer</span></h1>
       <p>
-        Passionate UI/UX designer. I create intuitive and visually appealing
-        digital experiences. I transform ideas into seamless designs that
-        meet users' expectations.
+        Passionate Web Developer. I craft responsive, high-performance websites that blend functionality with sleek design. I turn ideas into dynamic, user-friendly digital solutions.
       </p>
 
       <div class="hero-buttons">
-        <button class="primary">My Projects</button>
-        <button class="secondary">Download CV</button>
+        <a href="projects">
+          <button class="primary">My Projects</button>
+        </a>
+        <a href="files/DagmawitCV.pdf" download>
+          <button class="secondary">Download CV</button>
+        </a>
       </div>
 
       <div class="social-icons">
@@ -54,8 +54,8 @@
 
   <section id="About">
     <div class="content">
-        <div class="frame">
-            <img class="pp" src="images/im2.PNG" alt="Profile Image">
+        <div class="frame1">
+            <img class="pp1" src="images/im2.PNG" alt="Profile Image">
         </div>
         <div ="about-explain">
             <h1>About</h1>
@@ -69,8 +69,68 @@
     <hr>
   </section>
   <section id="Services">
-    <h1>Services</h1>
-    <p>Transforming ideas into fast, functional, and visually striking web experiences that drive impact and innovation.</p>
+    <div class="intro">
+      <h1>Services</h1>
+      <p>Transforming ideas into fast, functional, and visually striking web experiences that drive impact and innovation.</p>
+    </div>
+    <div class="service-cards">
+        <div class="card">
+            <img src="images/wd.png">
+            <h2>Custom Website Development</h2>
+            <p>Build responsive and fully customized websites tailored to client needs.</p>
+        </div>
+        <div class="card">
+            <img src="images/api.png">
+            <h2>API Integration</h2>
+            <p>Connect websites with third-party services like payment gateways, maps, or CRMs.</p>
+        </div>
+        <div class="card">
+            <img src="images/ui.png">
+            <h2>Landing Page Design</h2>
+            <p>Create high-converting landing pages optimized for marketing and lead generation.</p>
+        </div>
+        <div class="card">
+            <img src="images/support.png">
+            <h2>Website Maintenance & Support</h2>
+            <p>Offer regular updates, bug fixes, and performance monitoring to keep sites running smoothly.</p>
+        </div>
+    </div>
+  </section>
+  <hr>
+  <section id="Projects">
+    <div class="intro">
+      <h1>Projects</h1>
+      <p>Transforming ideas into fast, functional, and visually striking web experiences that drive impact and innovation.</p>
+    </div>
+    <div class="service-cards">
+        <div class="card">
+            <img src="images/et.jpg">
+            <h2>Smart Expense Tracker</h2>
+            <p>Transforming ideas into fast, functional, and visually striking web experiences that drive impact and innovation.</p>
+        </div>
+        <div class="card">
+            <img src="images/r4.png">
+            <h2>Name</h2>
+            <p>Transforming ideas into fast, functional, and visually striking web experiences that drive impact and innovation.</p>
+        </div>
+        <div class="card">
+            <img src="images/vt.jpg">
+            <h2>Name</h2>
+            <p>Transforming ideas into fast, functional, and visually striking web experiences that drive impact and innovation.</p>
+        </div>
+        <div class="card">
+            <img src="images/mh.jpg">
+            <h2>Name</h2>
+            <p>Transforming ideas into fast, functional, and visually striking web experiences that drive impact and innovation.</p>
+        </div>
+    </div>
+  </section>
+  <hr>
+  <section id="Services">
+    <div class="intro">
+      <h1>Services</h1>
+      <p>Transforming ideas into fast, functional, and visually striking web experiences that drive impact and innovation.</p>
+    </div>
     <div class="service-cards">
         <div class="card">
             <img src="images/et.jpg">
@@ -94,5 +154,41 @@
         </div>
     </div>
   </section>
+  <hr>
+  <section id="Contact">
+    <h1>Contact</h1>
+    <div class="Contact-right">
+      <h1>Let's Create Something Amazing Together</h1>
+      <form action="summit">
+        <lable>
+          <p>Name</p>
+          <input placeholder="Enter your full name">
+        </lable>
+        <lable>
+          <p>Email</p>
+          <input placeholder="Enter your email">
+        </lable>
+        <lable>
+          <p>Message</p>
+          <textarea placeholder="Enter message"></textarea>
+        </lable>
+        <div>
+          <button class="submit">Send Message</button>
+        </div>
+      </form>
+    </div>
+  </section>
+  <footer class="footer">
+  <div class="footer-content">
+    <p>&copy; 2025 Dagmawit Bekele. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="#home">Home</a>
+      <a href="#services">Services</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</footer>
+
 </body>
 </html>
