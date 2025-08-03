@@ -474,15 +474,15 @@ textarea:focus {
     align-items: center;
   }
 
-  .Home {
-    flex-direction: column;
-    text-align: center;
-    gap: 2rem;
-    flex-direction: column-reverse;
+  #Home {
+  display: flex;
+  flex-direction: column-reverse;
+  text-align: center;
+  gap: 2rem;
   }
 
   .Home-text h1 {
-    font-size: 2rem;
+    font-size: 1.3rem;
     white-space: normal;
     flex-wrap: wrap;
     animation: none;
@@ -513,13 +513,9 @@ textarea:focus {
     height: auto;
     margin: 0 auto;
   }
-
-  #About .content {
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
+  #Services{
+    text-align: center;
   }
-
   .service-cards {
     flex-direction: column;
     margin: 0 2rem;
@@ -536,7 +532,23 @@ textarea:focus {
     gap: 2rem;
     width: 100%;
   }
-
+  #About{
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+  #About h1{
+    text-align: center;
+  }
+  .frame img{
+    width: 200px;
+  }
+  }
+  #About .content {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
   #Contact input {
     width: 90%;
   }
