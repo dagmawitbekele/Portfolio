@@ -151,13 +151,14 @@ body {
 }
 .animation {
   position: relative;
-  width: 100%;
+  width: 90%;
   height: 50px; 
   background: linear-gradient(to right, #BA8E23, #1d3c31);
   overflow: hidden;
   margin: 2rem 0;
   align-items: center;
   justify-content: center;
+  justify-self: center;
   
 }
 
@@ -448,130 +449,77 @@ textarea:focus {
   color: #f9d421;
 }
 /*style for small screens to make the website responsive*/
-/* Small phones (max-width: 480px) */
-@media (max-width: 480px) {
-  .navbar {
-    flex-direction: column;
-    width: 100%;
-    padding: 1rem;
-    border-radius: 0;
-  }
 
-  .navbar ul {
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .logo,
-  .contact-button {
-    position: static;
-    margin: 0.5rem 0;
-  }
-
-  #Home {
-    flex-direction: column-reverse;
-    text-align: center;
-    gap: 1.5rem;
-  }
-
-  .Home-text h1 {
-    font-size: 1.2rem;
-    white-space: normal;
-    animation: none;
-  }
-
-  .Home-buttons {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .Home-image img {
-    width: 250px;
-    height: auto;
-  }
-
-  .service-cards {
-    flex-direction: column;
-    margin: 0 1rem;
-  }
-
-  .card {
-    width: 100%;
-  }
-
-  #About .content {
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
-  }
-
-  .frame img {
-    width: 180px;
-  }
-
-  .projects-scroll-container {
-    gap: 1rem;
-    padding: 1rem;
-  }
-
-  .project-card {
-    min-width: 85%;
-  }
-
-  #Contact {
-    padding: 2rem 1rem;
-  }
-
-  .contact-wrapper {
-    padding: 1.5rem;
-  }
-
-  .footer-links,
-  .social-links {
-    flex-direction: column;
-    gap: 1rem;
-  }
-}
-
-/* Medium devices (tablets: max-width: 768px) */
 @media (max-width: 768px) {
+
   .navbar {
     flex-direction: column;
-    align-items: center;
-    gap: 1rem;
+    padding: 1rem;
     width: 100%;
+    border-radius: 0%;
+    gap: 1rem;
+    opacity: 0.8;
   }
 
-  .navbar ul {
-    flex-direction: column;
-    align-items: center;
+  .logo {
+    position: static;
+    margin-bottom: 1rem;
   }
 
   .contact-button {
     position: static;
     margin-top: 1rem;
-    width: 80%;
-  }
-
-  #Home {
-    flex-direction: column-reverse;
-    text-align: center;
-    gap: 2rem;
-  }
-
-  .Home-text {
     width: 100%;
   }
 
+  .navbar ul {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  #Home {
+  display: flex;
+  flex-direction: column-reverse;
+  text-align: center;
+  gap: 2rem;
+  }
+  #Home .profilImage{
+    width: 250px;
+    height: 250%;
+  }
   .Home-text h1 {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
+    white-space: normal;
+    flex-wrap: wrap;
     animation: none;
-  }
+    width: auto;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 0;
+    opacity: 1;
 
-  .Home-image img {
-    width: 300px;
-  }
+  animation: typingFadeLoop 18s steps(25) infinite;
+}
 
+@keyframes typingFadeLoop {
+  0%   { width: 0; opacity: 1; }
+  28%  { width: 100%; opacity: 1; } 
+  78%  { width: 100%; opacity: 1; } 
+  100% { width: 0; opacity: 0; }
+}
+
+  .Home-buttons {
+    justify-content: center;
+    align-items: center;
+  }
+.animation{
+  width: 90%;
+  justify-self: center;
+}
+  #Services{
+    text-align: center;
+  }
   .service-cards {
     flex-direction: column;
     margin: 0 2rem;
@@ -582,93 +530,51 @@ textarea:focus {
     width: 90%;
   }
 
+  .Contact-right {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+  }
+  #About{
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
   #About .content {
     flex-direction: column;
     align-items: center;
+    gap: 2rem;
   }
-
-  .frame img {
-    width: 220px;
+  #About h1{
+    text-align: center;
   }
-
-  .project-card {
-    min-width: 280px;
+  .about-explain {
+  display: flex;
+  flex-direction: column;
+}
+  .about-explain .skills-img{
+    align-self: center;
   }
-
-  form {
-    width: 100%;
+  .frame img{
+    width: 200px;
   }
-
-  input,
-  textarea {
-    width: 100%;
+  }
+  #Contact input {
+    width: 90%;
   }
 
   .submit {
-    width: 100%;
-  }
-}
-
-/* Larger tablets and small laptops (max-width: 1024px) */
-@media (max-width: 1024px) {
-  .navbar {
-    flex-wrap: wrap;
-    justify-content: space-between;
-    padding: 1.2rem 2rem;
-    width: 100%;
+    width: 60%;
   }
 
-  .logo {
-    position: static;
-  }
-
-  .contact-button {
-    position: static;
-    width: auto;
-  }
-
-  #Home {
-    flex-direction: column-reverse;
-    align-items: center;
-    text-align: center;
-  }
-
-  .Home-text {
-    width: 100%;
-  }
-
-  .Home-text h1 {
-    font-size: 2rem;
-  }
-
-  .Home-image img {
-    max-width: 350px;
-  }
-
-  .service-cards {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 2rem;
-  }
-
-  .card {
-    flex: 1 1 45%;
-  }
-
-  #About .content {
+  .footer-links {
     flex-direction: column;
-    align-items: center;
+    gap: 1rem;
   }
-
-  .frame img {
-    width: 240px;
-  }
-
-  .project-card {
-    min-width: 250px;
-  }
-
-  .contact-wrapper {
-    width: 90%;
+/* Very large screens (desktops > 1440px) */
+@media (min-width: 1440px) {
+  .navbar{
+    width: 100%;
   }
 }
