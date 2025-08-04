@@ -1,5 +1,5 @@
 🌐 Personal Portfolio Website
-This is a responsive personal portfolio website built with HTML and CSS. It showcases my skills, projects,  and contact information.
+This is a responsive personal portfolio website built with pure HTML and CSS without any framework or library. It showcases my skills, projects,  and contact information.
 
 📁 Folder Structure
 bash
@@ -44,7 +44,7 @@ Clone the Repository
 bash
 Copy
 Edit
-git clone https://github.com/your-username/Portfolio.git
+git clone https://github.com/dagmawitbekele/Portfolio.git
 Open in Browser
 
 Open index.html in any modern browser.
