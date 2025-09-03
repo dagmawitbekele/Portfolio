@@ -3,158 +3,1388 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portfolio</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Dagmawit Bekele | Web Developer</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* === GLOBAL STYLES === */
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1e40af;
+      --secondary: #10b981;
+      --accent: #f59e0b;
+      --dark: #1f2937;
+      --light: #f9fafb;
+      --gray: #6b7280;
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 80px;
+    }
+    
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      color: var(--dark);
+      background-color: var(--light);
+      overflow-x: hidden;
+    }
+    
+    h1, h2, h3, h4 {
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+    
+    p {
+      margin-bottom: 1.5rem;
+    }
+    
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    
+    .section {
+      padding: 5rem 0;
+    }
+    
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+    
+    .section-title:after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      border-radius: 2px;
+    }
+    
+    .section-subtitle {
+      text-align: center;
+      color: var(--gray);
+      max-width: 700px;
+      margin: 0 auto 3rem;
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      outline: none;
+    }
+    
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+    }
+    
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(37, 99, 235, 0.3);
+    }
+    
+    .btn-secondary {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+    
+    .btn-secondary:hover {
+      background: rgba(37, 99, 235, 0.1);
+      transform: translateY(-2px);
+    }
+    
+    /* === NAVBAR === */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 2rem;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      z-index: 1000;
+      transition: var(--transition);
+    }
+    
+    .navbar.scrolled {
+      padding: 0.8rem 2rem;
+    }
+    
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo-circle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      margin-right: 0.5rem;
+    }
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+    
+    .nav-links a {
+      font-weight: 500;
+      position: relative;
+      padding: 0.5rem 0;
+    }
+    
+    .nav-links a:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: var(--transition);
+    }
+    
+    .nav-links a:hover:after {
+      width: 100%;
+    }
+    
+    .contact-button {
+      background: var(--primary);
+      color: white;
+      padding: 0.6rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+    
+    .contact-button:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+    
+    .menu-toggle {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    
+    /* === HERO SECTION === */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 80px;
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 3rem;
+    }
+    
+    .hero-text {
+      flex: 1;
+      animation: fadeInUp 1s ease;
+    }
+    
+    .hero-image {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      animation: fadeInRight 1s ease;
+    }
+    
+    .hero-image img {
+      max-width: 100%;
+      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      border: 5px solid white;
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    .hero-badge {
+      display: inline-block;
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--secondary);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    
+    .hero-title {
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .hero-description {
+      font-size: 1.2rem;
+      color: var(--gray);
+      margin-bottom: 2.5rem;
+      max-width: 600px;
+    }
+    
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    /* === FEATURED BAR === */
+    .featured-bar {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 1.2rem 0;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .scrolling-text {
+      display: flex;
+      animation: scroll 30s linear infinite;
+      white-space: nowrap;
+    }
+    
+    .scrolling-text span {
+      padding: 0 2rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+    }
+    
+    .scrolling-text i {
+      margin: 0 1rem;
+      color: var(--accent);
+    }
+    
+    /* === SERVICES SECTION === */
+    .services {
+      background: white;
+    }
+    
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    
+    .service-card {
+      background: white;
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      transition: var(--transition);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .service-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    .service-icon {
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(37, 99, 235, 0.1);
+      color: var(--primary);
+      font-size: 2rem;
+      border-radius: 20px;
+      margin: 0 auto 1.5rem;
+    }
+    
+    .service-title {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--dark);
+    }
+    
+    .service-description {
+      color: var(--gray);
+    }
+    
+    /* === ABOUT SECTION === */
+    .about {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    }
+    
+    .about-content {
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+    }
+    
+    .about-image {
+      flex: 1;
+      position: relative;
+    }
+    
+    .about-image img {
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    .about-image:before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: 3px solid var(--primary);
+      border-radius: 20px;
+      top: 15px;
+      left: 15px;
+      z-index: -1;
+    }
+    
+    .about-text {
+      flex: 1;
+    }
+    
+    .skills-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    
+    .skill-tag {
+      background: white;
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .skill-tag i {
+      color: var(--primary);
+    }
+    
+    /* === EDUCATION SECTION === */
+    .education {
+      background: white;
+    }
+    
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .timeline:before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 100%;
+      background: var(--primary);
+    }
+    
+    .timeline-item {
+      display: flex;
+      justify-content: flex-end;
+      padding-right: 30px;
+      position: relative;
+      margin-bottom: 50px;
+      width: 50%;
+    }
+    
+    .timeline-item:nth-child(even) {
+      align-self: flex-end;
+      justify-content: flex-start;
+      padding-left: 30px;
+      padding-right: 0;
+      left: 50%;
+    }
+    
+    .timeline-content {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      position: relative;
+    }
+    
+    .timeline-content:after {
+      content: '';
+      position: absolute;
+      right: -10px;
+      top: 20px;
+      width: 20px;
+      height: 20px;
+      background: white;
+      transform: rotate(45deg);
+    }
+    
+    .timeline-item:nth-child(even) .timeline-content:after {
+      left: -10px;
+      right: auto;
+    }
+    
+    .timeline-period {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      background: var(--primary);
+      color: white;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .timeline-title {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .timeline-subtitle {
+      color: var(--primary);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    .timeline-icon {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      right: -60px;
+      top: 15px;
+      z-index: 1;
+    }
+    
+    .timeline-item:nth-child(even) .timeline-icon {
+      left: -60px;
+      right: auto;
+    }
+    
+    /* === EXPERIENCE SECTION === */
+    .experience {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    }
+    
+    .experience-item {
+      background: white;
+      border-radius: 10px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+      border-left: 4px solid var(--primary);
+    }
+    
+    .experience-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+    
+    .experience-title {
+      font-size: 1.3rem;
+      color: var(--dark);
+    }
+    
+    .experience-company {
+      color: var(--primary);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    .experience-period {
+      background: rgba(37, 99, 235, 0.1);
+      color: var(--primary);
+      padding: 0.3rem 0.8rem;
+      border-radius: 15px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    
+    .experience-description {
+      color: var(--gray);
+    }
+    
+    .experience-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    
+    .experience-skill {
+      background: rgba(37, 99, 235, 0.1);
+      color: var(--primary);
+      padding: 0.3rem 0.8rem;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    
+    /* === PROJECTS SECTION === */
+    .projects {
+      background: white;
+    }
+    
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    
+    .project-card {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      transition: var(--transition);
+    }
+    
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    .project-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    
+    .project-content {
+      padding: 1.5rem;
+    }
+    
+    .project-title {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .project-description {
+      color: var(--gray);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .project-tag {
+      background: rgba(37, 99, 235, 0.1);
+      color: var(--primary);
+      padding: 0.3rem 0.8rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      color: var(--primary);
+      font-weight: 600;
+      gap: 0.5rem;
+      transition: var(--transition);
+    }
+    
+    .project-link:hover {
+      gap: 0.8rem;
+    }
+    
+    /* === CONTACT SECTION === */
+    .contact {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    }
+    
+    .contact-wrapper {
+      background: white;
+      border-radius: 20px;
+      padding: 3rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .contact-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    
+    .contact-form {
+      display: grid;
+      gap: 1.5rem;
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .form-label {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    
+    .form-input {
+      padding: 1rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      font-family: inherit;
+      transition: var(--transition);
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+    
+    textarea.form-input {
+      min-height: 150px;
+      resize: vertical;
+    }
+    
+    .submit-btn {
+      background: var(--primary);
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      margin-top: 1rem;
+    }
+    
+    .submit-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+    
+    /* === FOOTER === */
+    .footer {
+      background: var(--dark);
+      color: white;
+      padding: 4rem 0 2rem;
+    }
+    
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .footer-logo {
+      font-size: 2rem;
+      font-weight: 800;
+      color: white;
+      display: flex;
+      align-items: center;
+    }
+    
+    .footer-logo-circle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      margin-right: 0.5rem;
+    }
+    
+    .footer-description {
+      color: #d1d5db;
+      max-width: 300px;
+    }
+    
+    .footer-heading {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .footer-heading:after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+    
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+    
+    .footer-links a {
+      color: #d1d5db;
+      transition: var(--transition);
+    }
+    
+    .footer-links a:hover {
+      color: white;
+      padding-left: 5px;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      transition: var(--transition);
+    }
+    
+    .social-link:hover {
+      background: var(--primary);
+      transform: translateY(-3px);
+    }
+    
+    .footer-bottom {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: #9ca3af;
+    }
+    
+    /* === ANIMATIONS === */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes fadeInRight {
+      from {
+        opacity: 0;
+        transform: translateX(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    @keyframes float {
+      0% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes scroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+    
+    /* === RESPONSIVE STYLES === */
+    @media (max-width: 992px) {
+      .hero-content {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .hero-buttons {
+        justify-content: center;
+      }
+      
+      .about-content {
+        flex-direction: column;
+      }
+      
+      .timeline:before {
+        left: 30px;
+      }
+      
+      .timeline-item {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 0;
+      }
+      
+      .timeline-item:nth-child(even) {
+        left: 0;
+      }
+      
+      .timeline-icon {
+        left: 20px;
+        right: auto;
+      }
+      
+      .timeline-item:nth-child(even) .timeline-icon {
+        left: 20px;
+      }
+      
+      .timeline-content:after {
+        left: -10px;
+        right: auto;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 1rem;
+      }
+      
+      .nav-links {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        width: 100%;
+        flex-direction: column;
+        background: white;
+        padding: 2rem;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        transition: var(--transition);
+        gap: 1.5rem;
+      }
+      
+      .nav-links.active {
+        left: 0;
+      }
+      
+      .menu-toggle {
+        display: block;
+      }
+      
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .contact-wrapper {
+        padding: 2rem 1.5rem;
+      }
+      
+      .experience-header {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+    }
+  </style>
 </head>
 <body>
   <!-- Navbar -->
   <nav class="navbar">
-     <div class="logo"><h2>Db</h2></div>
-    <ul>
-      <li><a href="#Home">Home</a></li>
-      <li><a href="#Services">Services</a></li>
-      <li><a href="#About">About</a></li>
-      <li><a href="#my-projects">Projects</a></li>
+    <a href="#" class="logo">
+      <span class="logo-circle">Db</span>
+      Dagmawit
+    </a>
+    
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
     </ul>
-    <button class="contact-button"><a href="#Contact">Contact Me</a></button>
+    
+    <a href="#contact" class="contact-button">Contact Me</a>
+    
+    <div class="menu-toggle">
+      <i class="fas fa-bars"></i>
+    </div>
   </nav>
 
-  <!-- Home Section -->
-  <section id="Home">
-    <div class="Home-text">
-      <p>WELCOME TO MY WORLD ✨</p>
-      <h1>Hi, I'm <i>Dagmawit Bekele</i></strong></h1>
-      <h1>Web Developer</span></h1>
-      <p>
-        As A Passionate Web Developer. I craft responsive, high-performance websites that blend functionality with sleek design. I turn ideas into dynamic, user-friendly digital solutions.
-      </p>
-
-      <div class="Home-buttons">
-        <a href="projects">
-          <button class="primary"><a href="#my-projects">My projects</a></button>
-        </a>
-        <a href="files/DagmawitCV.pdf" download>
-          <button class="secondary">Download CV</button>
-        </a>
+  <!-- Hero Section -->
+  <section id="home" class="hero section">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text">
+          <span class="hero-badge">
+            <i class="fas fa-star"></i> WELCOME TO MY WORLD
+          </span>
+          <h1 class="hero-title">Hi, I'm Dagmawit Bekele</h1>
+          <h2 class="hero-title">Web Developer</h2>
+          <p class="hero-description">
+            As a passionate web developer, I craft responsive, high-performance websites that blend functionality with sleek design. I turn ideas into dynamic, user-friendly digital solutions.
+          </p>
+          <div class="hero-buttons">
+            <a href="#projects" class="btn btn-primary">My Projects</a>
+            <a href="files/DagmawitCV.pdf" download class="btn btn-secondary">
+              <i class="fas fa-download"></i> Download CV
+            </a>
+          </div>
+        </div>
+        <div class="hero-image">
+          <img src="./images/im2.png" alt="Dagmawit Bekele">
+        </div>
       </div>
     </div>
-    <img class="profilImage" src="images/im6.png" alt="Profile Image">
-  </div>
   </section>
-  <div class="animation">
-  <span class="scroll-text">Welcome to my portfolio &nbsp;&nbsp;•&nbsp;&nbsp;lets build Something Amazing Together &nbsp;&nbsp;•&nbsp;&nbsp;Welcome to my portfolio&nbsp;&nbsp;•&nbsp;&nbsp;lets build Something Amazing Together&nbsp;&nbsp;• &nbsp;&nbsp;Welcome to my portfolio&nbsp;&nbsp;• &nbsp;&nbsp;lets build Something Amazing Together • </span>
-</div>
-<!-- service section-->
-   <section id="Services">
-    <div class="intro">
-      <h1>Services I provided</h1>
-    </div>
-    <div class="service-cards">
-        <div class="card">
-            <img src="images/wd.png">
-            <h2>Custom Website Development</h2>
-            <p>Build responsive and fully customized websites tailored to client needs.</p>
-        </div>
-        <div class="card">
-            <img src="images/api.png">
-            <h2>API Integration</h2>
-            <p>Connect websites with third-party services like payment gateways, maps, or CRMs.</p>
-        </div>
-        <div class="card">
-            <img src="images/ui.png">
-            <h2>Landing Page Design</h2>
-            <p>Create high-converting landing pages optimized for marketing and lead generation.</p>
-        </div>
-    </div>
-  </section>
-<hr>
-<!-- About section-->
-  <section id="About">
-    <div class="content">
-        <div class="frame">
-            <img class="profilImage" src="images/im6.png" alt="Profile Image">
-        </div>
-        <div class="about-explain">
-            <h1>About</h1>
-            <p>I am a passionate and detail-oriented web developer with a strong foundation in front-end technologies like HTML, CSS, JavaScript, and modern frameworks such as React. I enjoy creating responsive, user-friendly websites that deliver great user experiences across all devices. I am always eager to learn new tools and techniques to keep my skills current and deliver high-quality solutions.</p>
-                <h1>skills</h1>
-                <img src="./images/img.png" class="skills-img">
-                
-        </div>
-    </div>
-  </section>
-  <hr>
-  <!-- Project section -->
-  <section id="my-projects">
-  <div class="project-header">
-    <h1 class="section-title">Projects</h1>
-    <p class="section-subtitle">Transforming ideas into fast, functional, and visually striking web experiences that drive impact and innovation.</p>
-  </div>
-  <div class="projects-scroll-container">
-    <div class="project-card">
-      <img src="images/et.jpg" alt="TrackWise">
-      <h2>TrackWise</h2>
-      <p>A web-based expense tracker with clean UI and visual analytics.</p>
-    </div>
-    <div class="project-card">
-      <img src="images/ed.jpg" alt="EduPortal">
-      <h2>EduPortal</h2>
-      <p>An academic dashboard for students to manage grades, schedules, and assignments.</p>
-    </div>
-    <div class="project-card">
-      <img src="images/ss.jpg" alt="SkillSync">
-      <h2>SkillSync</h2>
-      <p>A job-matching app that connects users to gigs based on their skillsets.</p>
-    </div>
-    <div class="project-card">
-      <img src="images/fd.jpg" alt="Unnamed">
-      <h2>LocalBite</h2>
-      <p>Transforming ideas into fast, functional, and visually striking web experiences that drive impact and innovation.</p>
-    </div>
-  </div>
-</section>
-  <hr>
-  <!-- Contact section -->
-  <section id="Contact">
-  <h1>Contact</h1>
-  <div class="contact-wrapper">
-    <h2>Let's Create Something Amazing Together</h2>
-    <form action="submit">
-      <label>
-        <p>Name</p>
-        <input type="text" placeholder="Enter your full name" required>
-      </label>
-      <label>
-        <p>Email</p>
-        <input type="email" placeholder="Enter your email" required>
-      </label>
-      <label>
-        <p>Message</p>
-        <textarea placeholder="Enter your message" rows="5" required></textarea>
-      </label>
-      <button class="contact-submit" type="submit">Send Message</button>
-    </form>
-  </div>
-</section>
-<!-- Footer -->
-  <footer class="footer">
-  <div class="footer-content">
-    <p>&copy; 2025 Dagmawit Bekele. All rights reserved.</p>
-    
-    <div class="footer-links">
-      <a href="#Home">Home</a>
-      <a href="#Services">Services</a>
-      <a href="#About">About</a>
-      <a href="#my-projects">Projects</a>
-    </div>
 
-    <div class="social-links">
-      <a href="https://t.me/Dagi21121" target="_blank">Telegram</a>
-      <a href="https://www.linkedin.com/in/dagmawit-bekele1221/" target="_blank">LinkedIn</a>
-      <a href="https://github.com/dagmawitbekele" target="_blank">GitHub</a>
-      <a href="mailto:dagmawibekele05@gmail.com">Email</a>
+  <!-- Featured Bar -->
+  <div class="featured-bar">
+    <div class="scrolling-text">
+      <span><i class="fas fa-code"></i> Web Development</span>
+      <span><i class="fas fa-paint-brush"></i> UI/UX Design</span>
+      <span><i class="fas fa-mobile-alt"></i> Responsive Design</span>
+      <span><i class="fas fa-rocket"></i> High Performance</span>
+      <span><i class="fas fa-code"></i> Web Development</span>
+      <span><i class="fas fa-paint-brush"></i> UI/UX Design</span>
+      <span><i class="fas fa-mobile-alt"></i> Responsive Design</span>
+      <span><i class="fas fa-rocket"></i> High Performance</span>
     </div>
   </div>
-</footer>
+
+  <!-- Services Section -->
+  <section id="services" class="services section">
+    <div class="container">
+      <h2 class="section-title">Services I Provide</h2>
+      <p class="section-subtitle">I offer a range of web development services to help bring your digital ideas to life</p>
+      
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-laptop-code"></i>
+          </div>
+          <h3 class="service-title">Custom Website Development</h3>
+          <p class="service-description">Build responsive and fully customized websites tailored to client needs with modern technologies and best practices.</p>
+        </div>
+        
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-plug"></i>
+          </div>
+          <h3 class="service-title">API Integration</h3>
+          <p class="service-description">Connect websites with third-party services like payment gateways, maps, or CRMs for enhanced functionality.</p>
+        </div>
+        
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-paint-roller"></i>
+          </div>
+          <h3 class="service-title">Landing Page Design</h3>
+          <p class="service-description">Create high-converting landing pages optimized for marketing and lead generation with compelling UI/UX.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about section">
+    <div class="container">
+      <h2 class="section-title">About Me</h2>
+      <p class="section-subtitle">Get to know more about my skills and experience</p>
+      
+      <div class="about-content">
+        <div class="about-image">
+          <img src="." alt="Dagmawit Bekele">
+        </div>
+        
+        <div class="about-text">
+          <p>I am a passionate and detail-oriented web developer with a strong foundation in front-end technologies like HTML, CSS, JavaScript, and modern frameworks such as React. I enjoy creating responsive, user-friendly websites that deliver great user experiences across all devices.</p>
+          <p>I am always eager to learn new tools and techniques to keep my skills current and deliver high-quality solutions that exceed client expectations.</p>
+          <h3>My Skills</h3>
+          <div class="skills-container">
+            <span class="skill-tag"><i class="fab fa-html5"></i> HTML5</span>
+            <span class="skill-tag"><i class="fab fa-css3-alt"></i> CSS3</span>
+            <span class="skill-tag"><i class="fab fa-js"></i> JavaScript</span>
+            <span class="skill-tag"><i class="fab fa-react"></i> React</span>
+            <span class="skill-tag"><i class="fab fa-node-js"></i> Node.js</span>
+            <span class="skill-tag"><i class="fas fa-database"></i> MongoDB</span>
+            <span class="skill-tag"><i class="fab fa-git-alt"></i> Git</span>
+            <span class="skill-tag"><i class="fas fa-mobile-alt"></i> Responsive Design</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education Section -->
+  <section id="education" class="education section">
+    <div class="container">
+      <h2 class="section-title">Education</h2>
+      <p class="section-subtitle">My academic journey and qualifications</p>
+      
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-icon">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <div class="timeline-content">
+            <span class="timeline-period">2020 - 2023</span>
+            <h3 class="timeline-title">Bachelor of Science in Computer Science</h3>
+            <p class="timeline-subtitle">Addis Ababa University</p>
+            <p>Specialized in web technologies and software engineering. Completed with distinction and received the Dean's Award for academic excellence.</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-icon">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <div class="timeline-content">
+            <span class="timeline-period">2017 - 2020</span>
+            <h3 class="timeline-title">Diploma in Web Development</h3>
+            <p class="timeline-subtitle">Ethiopian Technical University</p>
+            <p>Focused on front-end and back-end web development technologies. Completed several real-world projects during this program.</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-icon">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <div class="timeline-content">
+            <span class="timeline-period">2015 - 2017</span>
+            <h3 class="timeline-title">High School Diploma</h3>
+            <p class="timeline-subtitle">Lideta Catholic Cathedral School</p>
+            <p>Science stream with focus on mathematics and physics. Participated in coding clubs and technology competitions.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section id="experience" class="experience section">
+    <div class="container">
+      <h2 class="section-title">Work Experience</h2>
+      <p class="section-subtitle">My professional journey and career milestones</p>
+      
+      <div class="experience-list">
+        <div class="experience-item">
+          <div class="experience-header">
+            <div>
+              <h3 class="experience-title">Frontend Developer</h3>
+              <p class="experience-company">TechSolutions Inc.</p>
+            </div>
+            <span class="experience-period">2022 - Present</span>
+          </div>
+          <p class="experience-description">
+            Develop responsive web applications using React.js and modern CSS frameworks. Collaborate with UX designers to implement pixel-perfect interfaces and optimize performance for better user experience.
+          </p>
+          <div class="experience-skills">
+            <span class="experience-skill">React</span>
+            <span class="experience-skill">TypeScript</span>
+            <span class="experience-skill">Redux</span>
+            <span class="experience-skill">Styled Components</span>
+          </div>
+        </div>
+        
+        <div class="experience-item">
+          <div class="experience-header">
+            <div>
+              <h3 class="experience-title">Web Developer Intern</h3>
+              <p class="experience-company">Digital Creations Studio</p>
+            </div>
+            <span class="experience-period">2021 - 2022</span>
+          </div>
+          <p class="experience-description">
+            Assisted in developing and maintaining client websites. Implemented new features and fixed bugs. Gained experience in working with cross-functional teams and meeting project deadlines.
+          </p>
+          <div class="experience-skills">
+            <span class="experience-skill">HTML/CSS</span>
+            <span class="experience-skill">JavaScript</span>
+            <span class="experience-skill">WordPress</span>
+            <span class="experience-skill">PHP</span>
+          </div>
+        </div>
+        
+        <div class="experience-item">
+          <div class="experience-header">
+            <div>
+              <h3 class="experience-title">Freelance Web Developer</h3>
+              <p class="experience-company">Self-Employed</p>
+            </div>
+            <span class="experience-period">2019 - 2021</span>
+          </div>
+          <p class="experience-description">
+            Worked with various clients to create custom websites and web applications. Managed projects from conception to deployment, ensuring client satisfaction and timely delivery.
+          </p>
+          <div class="experience-skills">
+            <span class="experience-skill">Web Design</span>
+            <span class="experience-skill">Client Management</span>
+            <span class="experience-skill">Project Planning</span>
+            <span class="experience-skill">SEO</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="projects section">
+    <div class="container">
+      <h2 class="section-title">My Projects</h2>
+      <p class="section-subtitle">Transforming ideas into fast, functional, and visually striking web experiences that drive impact and innovation.</p>
+      
+      <div class="projects-grid">
+        <div class="project-card">
+          <img src="./images/mothercare/mothercare.png" alt="TrackWise" class="project-image">
+          <div class="project-content">
+            <h3 class="project-title">MotherCare</h3>
+            <p class="project-description">A web application designed to assist expectant mothers throughout their pregnancy journey by providing personalized guidance, health tips, reminders, and analytics.</p>
+            <div class="project-tags">
+              <span class="project-tag">React</span>
+              <span class="project-tag">Node.js</span>
+              <span class="project-tag">MongoDB</span>
+            </div>
+            <a href="./project.html" class="project-link">
+              View Project <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div class="project-card">
+          <img src="https://placehold.co/600x400/10b981/FFFFFF?text=EduPortal" alt="EduPortal" class="project-image">
+          <div class="project-content">
+            <h3 class="project-title">EduPortal</h3>
+            <p class="project-description">An academic dashboard for students to manage grades, schedules, and assignments in an intuitive interface.</p>
+            <div class="project-tags">
+              <span class="project-tag">Vue.js</span>
+              <span class="project-tag">Firebase</span>
+              <span class="project-tag">Chart.js</span>
+            </div>
+            <a href="#" class="project-link">
+              View Project <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div class="project-card">
+          <img src="https://placehold.co/600x400/f59e0b/FFFFFF?text=SkillSync" alt="SkillSync" class="project-image">
+          <div class="project-content">
+            <h3 class="project-title">SkillSync</h3>
+            <p class="project-description">A job-matching app that connects users to gigs based on their skillsets with smart matching algorithms.</p>
+            <div class="project-tags">
+              <span class="project-tag">React Native</span>
+              <span class="project-tag">Express</span>
+              <span class="project-tag">PostgreSQL</span>
+            </div>
+            <a href="#" class="project-link">
+              View Project <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact section">
+    <div class="container">
+      <h2 class="section-title">Get In Touch</h2>
+      <p class="section-subtitle">Have a project in mind or want to discuss potential collaboration? I'd love to hear from you!</p>
+      
+      <div class="contact-wrapper">
+        <div class="contact-header">
+          <h3>Let's Create Something Amazing Together</h3>
+        </div>
+        
+        <form class="contact-form">
+          <div class="form-group">
+            <label class="form-label">Name</label>
+            <input type="text" class="form-input" placeholder="Enter your full name" required>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-input" placeholder="Enter your email address" required>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Message</label>
+            <textarea class="form-input" placeholder="Tell me about your project or inquiry" required></textarea>
+          </div>
+          
+          <button type="submit" class="submit-btn">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <a href="#" class="footer-logo">
+            <span class="footer-logo-circle">Db</span>
+            Dagmawit Bekele
+          </a>
+          <p class="footer-description">Crafting digital experiences that are both beautiful and functional.</p>
+          <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+            <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">Services</h4>
+          <ul class="footer-links">
+            <li><a href="#">Web Development</a></li>
+            <li><a href="#">API Integration</a></li>
+            <li><a href="#">UI/UX Design</a></li>
+            <li><a href="#">Consultation</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">Contact Info</h4>
+          <ul class="footer-links">
+            <li><i class="fas fa-envelope"></i> dagmawibekele05@gmail.com</li>
+            <li><i class="fas fa-map-marker-alt"></i> Addis Ababa, Ethiopia</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2025 Dagmawit Bekele. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+    
+    // Mobile menu toggle
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    
+    menuToggle.addEventListener('click', function() {
+      navLinks.classList.toggle('active');
+    });
+    
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+      });
+    });
+  </script>
 </body>
 </html>
