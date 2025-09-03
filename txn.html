@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Transaction Dashboard - Project Detail | Dagmawit Bekele</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* === GLOBAL STYLES === */
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1e40af;
+      --secondary: #10b981;
+      --accent: #f59e0b;
+      --dark: #1f2937;
+      --light: #f9fafb;
+      --gray: #6b7280;
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      color: var(--dark);
+      background-color: var(--light);
+      overflow-x: hidden;
+    }
+    
+    h1, h2, h3, h4 {
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+    
+    p {
+      margin-bottom: 1.5rem;
+    }
+    
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      outline: none;
+    }
+    
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+    }
+    
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(37, 99, 235, 0.3);
+    }
+    
+    .btn-secondary {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+    
+    .btn-secondary:hover {
+      background: rgba(37, 99, 235, 0.1);
+      transform: translateY(-2px);
+    }
+    
+    /* === NAVBAR === */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 2rem;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      z-index: 1000;
+      transition: var(--transition);
+    }
+    
+    .navbar.scrolled {
+      padding: 0.8rem 2rem;
+    }
+    
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo-circle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      margin-right: 0.5rem;
+    }
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+    
+    .nav-links a {
+      font-weight: 500;
+      position: relative;
+      padding: 0.5rem 0;
+    }
+    
+    .nav-links a:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: var(--transition);
+    }
+    
+    .nav-links a:hover:after {
+      width: 100%;
+    }
+    
+    .menu-toggle {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    
+    /* === PROJECT HERO SECTION === */
+    .project-hero {
+      padding: 8rem 0 4rem;
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    }
+    
+    .project-hero-content {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+    }
+    
+    .project-info {
+      flex: 1;
+    }
+    
+    .project-image {
+      flex: 2;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    .project-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: var(--transition);
+    }
+    
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin: 1.5rem 0;
+    }
+    
+    .project-tag {
+      background: rgba(37, 99, 235, 0.1);
+      color: var(--primary);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    
+    .project-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    
+    /* === PROJECT DETAILS SECTION === */
+    .project-details {
+      padding: 5rem 0;
+    }
+    
+    .details-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 4rem;
+    }
+    
+    .project-content {
+      padding-right: 2rem;
+    }
+    
+    .project-sidebar {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      height: fit-content;
+      position: sticky;
+      top: 100px;
+    }
+    
+    .sidebar-section {
+      margin-bottom: 2rem;
+    }
+    
+    .sidebar-title {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid rgba(37, 99, 235, 0.1);
+    }
+    
+    .tech-list {
+      list-style: none;
+    }
+    
+    .tech-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 0.8rem;
+    }
+    
+    .tech-icon {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+    }
+    
+    /* === PROJECT GALLERY === */
+    #project-gallery {
+      padding: 3rem 0;
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    }
+    
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    
+    .gallery-item {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    
+    .gallery-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    }
+    
+    .gallery-item img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      display: block;
+    }
+    
+    /* === RELATED PROJECTS === */
+    .related-projects {
+      padding: 5rem 0;
+    }
+    
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .project-card {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      transition: var(--transition);
+    }
+    
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    .project-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    
+    .project-card-content {
+      padding: 1.5rem;
+    }
+    
+    .project-card-title {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .project-card-description {
+      color: var(--gray);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    /* === FOOTER === */
+    .footer {
+      background: var(--dark);
+      color: white;
+      padding: 4rem 0 2rem;
+    }
+    
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .footer-logo {
+      font-size: 2rem;
+      font-weight: 800;
+      color: white;
+      display: flex;
+      align-items: center;
+    }
+    
+    .footer-logo-circle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      margin-right: 0.5rem;
+    }
+    
+    .footer-description {
+      color: #d1d5db;
+      max-width: 300px;
+    }
+    
+    .footer-heading {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .footer-heading:after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+    
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+    
+    .footer-links a {
+      color: #d1d5db;
+      transition: var(--transition);
+    }
+    
+    .footer-links a:hover {
+      color: white;
+      padding-left: 5px;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      transition: var(--transition);
+    }
+    
+    .social-link:hover {
+      background: var(--primary);
+      transform: translateY(-3px);
+    }
+    
+    .footer-bottom {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: #9ca3af;
+    }
+    
+    /* === RESPONSIVE STYLES === */
+    @media (max-width: 992px) {
+      .project-hero-content {
+        flex-direction: column;
+      }
+      
+      .details-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      
+      .project-content {
+        padding-right: 0;
+        margin-left: 2rem
+      }
+      .project-content li{
+        padding-right: 0;
+        margin-left: 20px;
+      }
+      .project-sidebar {
+        position: relative;
+        top: 0;
+      }
+    }
+    .process{
+      margin-top: 2rem
+    }
+    
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 1rem;
+      }
+      
+      .nav-links {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        width: 100%;
+        flex-direction: column;
+        background: white;
+        padding: 2rem;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        transition: var(--transition);
+        gap: 1.5rem;
+      }
+      
+      .nav-links.active {
+        left: 0;
+      }
+      
+      .menu-toggle {
+        display: block;
+      }
+      
+      .project-actions {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">
+      <span class="logo-circle">Db</span>
+      Dagmawit
+    </a>
+    
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#projects">Projects</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    
+    <div class="menu-toggle">
+      <i class="fas fa-bars"></i>
+    </div>
+  </nav>
+
+  <!-- Project Hero Section -->
+  <section class="project-hero">
+    <div class="container">
+      <div class="project-hero-content">
+        <div class="project-info">
+          <h1>Transaction Dashboard</h1>
+          <p>A comprehensive financial dashboard for tracking, analyzing, and visualizing transactions with advanced filtering, categorization, and reporting capabilities.</p>
+          
+          <div class="project-tags">
+            <span class="project-tag">React</span>
+            <span class="project-tag">TypeScript</span>
+            <span class="project-tag">Chart.js</span>
+            <span class="project-tag">Node.js</span>
+            <span class="project-tag">PostgreSQL</span>
+            <span class="project-tag">Data Visualization</span>
+            <span class="project-tag">Responsive Design</span>
+          </div>
+          
+          <div class="project-actions">
+            <a href="#project-gallery" class="btn btn-primary">
+              <i class="fas fa-external-link-alt"></i> Live Demo
+            </a>
+            <a href="https://github.com/dagmawitbekele/transaction-dashboard" class="btn btn-secondary">
+              <i class="fab fa-github"></i> View Code
+            </a>
+          </div>
+        </div>
+        
+        <div class="project-image">
+          <img src="./files/txn.jpg" alt="Transaction Dashboard Overview">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Project Details Section -->
+  <section class="project-details">
+    <div class="container">
+      <div class="details-grid">
+        <div class="project-content">
+          <h2>Key Features</h2>
+          <ul>
+            <li>Transaction Overview: Real-time summary of income, expenses, and net balance</li>
+            <li>Advanced Filtering: Filter transactions by date, category, amount, and payment method</li>
+            <li>Data Visualization: Interactive charts and graphs for spending patterns and trends</li>
+            <li>Category Management: Customizable categories with color coding</li>
+            <li>Export Functionality: Export transaction data to CSV, PDF, and Excel formats</li>
+            <li>Multi-currency Support: Handle transactions in different currencies with automatic conversion</li>
+            <li>Responsive Design: Fully functional on desktop, tablet, and mobile devices</li>
+          </ul>
+          <h2 class="process">Development Process</h2>
+          <p>The Transaction Dashboard was developed using a component-based architecture with React and TypeScript for type safety. I implemented Chart.js for data visualization, creating custom chart components for spending analysis and financial trends.</p>
+          <p>The backend was built with Node.js and Express, with PostgreSQL as the database for handling complex financial data relationships. I implemented secure authentication using JWT tokens and deployed the application on AWS with a CI/CD pipeline for automatic deployments.</p>
+          <p>Performance optimization was a key focus, with lazy loading of components and efficient database queries to ensure fast loading times even with large transaction datasets.</p>
+        </div>
+        
+        <div class="project-sidebar">
+          <div class="sidebar-section">
+            <h3 class="sidebar-title">Project Details</h3>
+            <ul class="tech-list">
+              <li><span class="tech-icon"><i class="fas fa-calendar"></i></span> <strong>Timeline:</strong> 4 weeks</li>
+              <li><span class="tech-icon"><i class="fas fa-tag"></i></span> <strong>Category:</strong> Financial Dashboard</li>
+              <li><span class="tech-icon"><i class="fas fa-user"></i></span> <strong>Client:</strong> FinTech Startup</li>
+              <li><span class="tech-icon"><i class="fas fa-code-branch"></i></span> <strong>Status:</strong> Completed</li>
+            </ul>
+          </div>
+          
+          <div class="sidebar-section">
+            <h3 class="sidebar-title">Technologies Used</h3>
+            <ul class="tech-list">
+              <li><span class="tech-icon"><i class="fab fa-react"></i></span> React.js</li>
+              <li><span class="tech-icon"><i class="fab fa-typescript"></i></span> TypeScript</li>
+              <li><span class="tech-icon"><i class="fas fa-chart-bar"></i></span> Chart.js</li>
+              <li><span class="tech-icon"><i class="fab fa-node-js"></i></span> Node.js</li>
+              <li><span class="tech-icon"><i class="fas fa-database"></i></span> PostgreSQL</li>
+              <li><span class="tech-icon"><i class="fas fa-server"></i></span> Express.js</li>
+              <li><span class="tech-icon"><i class="fab fa-aws"></i></span> AWS</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Project Gallery Section -->
+  <section id="project-gallery">
+    <div class="container">
+      <h2>Project Screenshots</h2>
+      <p>Visual highlights of the Transaction Dashboard interface and features:</p>
+      
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <img src="./files/txn.jpg" alt="Dashboard Main View">
+        </div>
+        <div class="gallery-item">
+          <img src="./images/transaction-dashboard/analytics-view.png" alt="Analytics View">
+        </div>
+        <div class="gallery-item">
+          <img src="./images/transaction-dashboard/mobile-view.png" alt="Mobile Responsive View">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Projects Section -->
+  <section class="related-projects">
+    <div class="container">
+      <h2>Other Projects</h2>
+      <p>Check out some of my other work:</p>
+      
+      <div class="projects-grid">
+        <div class="project-card">
+          <img src="https://placehold.co/600x400/10b981/FFFFFF?text=EduPortal" alt="EduPortal">
+          <div class="project-card-content">
+            <h3 class="project-card-title">EduPortal</h3>
+            <p class="project-card-description">An academic dashboard for students to manage grades, schedules, and assignments.</p>
+            <a href="project-eduportal.html" class="btn btn-secondary">View Project</a>
+          </div>
+        </div>
+        
+        <div class="project-card">
+          <img src="https://placehold.co/600x400/f59e0b/FFFFFF?text=SkillSync" alt="SkillSync">
+          <div class="project-card-content">
+            <h3 class="project-card-title">SkillSync</h3>
+            <p class="project-card-description">A job-matching app that connects users to gigs based on their skillsets.</p>
+            <a href="project-skillsync.html" class="btn btn-secondary">View Project</a>
+          </div>
+        </div>
+        
+        <div class="project-card">
+          <img src="https://placehold.co/600x400/7c3aed/FFFFFF?text=LocalBite" alt="LocalBite">
+          <div class="project-card-content">
+            <h3 class="project-card-title">LocalBite</h3>
+            <p class="project-card-description">A platform connecting local food producers with consumers in their community.</p>
+            <a href="project-localbite.html" class="btn btn-secondary">View Project</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <a href="index.html" class="footer-logo">
+            <span class="footer-logo-circle">Db</span>
+            Dagmawit Bekele
+          </a>
+          <p class="footer-description">Crafting digital experiences that are both beautiful and functional.</p>
+          <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+            <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#services">Services</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#projects">Projects</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">Services</h4>
+          <ul class="footer-links">
+            <li><a href="#">Web Development</a></li>
+            <li><a href="#">API Integration</a></li>
+            <li><a href="#">UI/UX Design</a></li>
+            <li><a href="#">Consultation</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">Contact Info</h4>
+          <ul class="footer-links">
+            <li><i class="fas fa-envelope"></i> dagmawibekele05@gmail.com</li>
+            <li><i class="fas fa-map-marker-alt"></i> Addis Ababa, Ethiopia</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2025 Dagmawit Bekele. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+    
+    // Mobile menu toggle
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    
+    menuToggle.addEventListener('click', function() {
+      navLinks.classList.toggle('active');
+    });
+    
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+      });
+    });
+  </script>
+</body>
+</html>
