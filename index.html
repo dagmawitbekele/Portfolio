@@ -359,43 +359,111 @@
     }
     
     /* === ABOUT SECTION === */
+    /* About Section */
     .about {
       background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .about:before {
+      content: '';
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, var(--primary), var(--accent));
+      opacity: 0.1;
+      top: -150px;
+      left: -150px;
+    }
+    
+    .about:after {
+      content: '';
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, var(--accent), var(--primary));
+      opacity: 0.1;
+      bottom: -100px;
+      right: -100px;
     }
     
     .about-content {
       display: flex;
       align-items: center;
       gap: 4rem;
+      position: relative;
+      z-index: 1;
     }
     
     .about-image {
       flex: 1;
       position: relative;
+      perspective: 1000px;
     }
     
     .about-image img {
-      width: 100%;
-      border-radius: 50%;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      transform: rotateY(5deg);
+      transition: all 0.5s ease;
+    }
+    
+    .about-image:hover img {
+      transform: rotateY(-5deg);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
     }
     
     .about-image:before {
       content: '';
       position: absolute;
-      width: 100%;
+      width: 90%;
       height: 100%;
       border: 3px solid var(--primary);
       border-radius: 20px;
       top: 15px;
       left: 15px;
       z-index: -1;
+      transition: all 0.3s ease;
+    }
+    
+    .about-image:hover:before {
+      top: 10px;
+      left: 10px;
     }
     
     .about-text {
       flex: 1;
     }
     
+    .about-text p {
+      margin-bottom: 20px;
+      line-height: 1.6;
+      font-size: 1.05rem;
+    }
+    
+    .about-text h3 {
+      margin: 30px 0 20px;
+      color: var(--secondary);
+      position: relative;
+      display: inline-block;
+    }
+    
+    .about-text h3:after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 50%;
+      height: 3px;
+      background: linear-gradient(to right, var(--primary), transparent);
+      border-radius: 2px;
+    }
+    
+    /* Skills Container */
     .skills-container {
       display: flex;
       flex-wrap: wrap;
@@ -405,17 +473,154 @@
     
     .skill-tag {
       background: white;
-      padding: 0.5rem 1.2rem;
+      padding: 0.8rem 1.5rem;
       border-radius: 50px;
       font-weight: 600;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .skill-tag:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, var(--primary), var(--accent));
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: -1;
+    }
+    
+    .skill-tag:hover {
+      transform: translateY(-5px);
+      color: white;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+    }
+    
+    .skill-tag:hover:before {
+      opacity: 1;
+    }
+    
+    .skill-tag:hover i {
+      color: white;
+      transform: scale(1.2);
     }
     
     .skill-tag i {
       color: var(--primary);
+      transition: all 0.3s ease;
+    }
+    
+    /* Floating elements */
+    .floating-elements {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      z-index: 0;
+    }
+    
+    .floating-element {
+      position: absolute;
+      border-radius: 50%;
+      background: linear-gradient(45deg, var(--primary), var(--accent));
+      opacity: 0.1;
+      animation: float 15s infinite linear;
+    }
+    
+    .floating-element:nth-child(1) {
+      width: 50px;
+      height: 50px;
+      top: 20%;
+      left: 10%;
+      animation-delay: 0s;
+      animation-duration: 20s;
+    }
+    
+    .floating-element:nth-child(2) {
+      width: 30px;
+      height: 30px;
+      top: 60%;
+      left: 5%;
+      animation-delay: -5s;
+      animation-duration: 15s;
+    }
+    
+    .floating-element:nth-child(3) {
+      width: 70px;
+      height: 70px;
+      top: 30%;
+      right: 5%;
+      animation-delay: -10s;
+      animation-duration: 25s;
+    }
+    
+    .floating-element:nth-child(4) {
+      width: 40px;
+      height: 40px;
+      top: 70%;
+      right: 10%;
+      animation-delay: -7s;
+      animation-duration: 18s;
+    }
+    
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-20px) rotate(180deg);
+      }
+      100% {
+        transform: translateY(0) rotate(360deg);
+      }
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .about-content {
+        flex-direction: column;
+        gap: 3rem;
+      }
+      
+      .about-image, .about-text {
+        flex: none;
+        width: 100%;
+      }
+      
+      .about-image {
+        display: flex;
+        justify-content: center;
+      }
+      
+      .about-image img {
+        width: 70%;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .about-image img {
+        width: 85%;
+      }
+      
+      .skill-tag {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+      }
     }
     
     /* === EDUCATION SECTION === */
@@ -1070,8 +1275,15 @@
     </div>
   </section>
 
-  <!-- About Section -->
+ <!-- About Section -->
   <section id="about" class="about section">
+    <div class="floating-elements">
+      <div class="floating-element"></div>
+      <div class="floating-element"></div>
+      <div class="floating-element"></div>
+      <div class="floating-element"></div>
+    </div>
+    
     <div class="container">
       <h2 class="section-title">About Me</h2>
       <p class="section-subtitle">Get to know more about my skills and experience</p>
@@ -1080,18 +1292,21 @@
         <div class="about-image">
           <img src="./images/im2.png" alt="Dagmawit Bekele">
         </div>
-        
         <div class="about-text">
-          <p>I am a passionate and detail-oriented web developer with a strong foundation in front-end technologies like HTML, CSS, JavaScript, and modern frameworks such as React. I enjoy creating responsive, user-friendly websites that deliver great user experiences across all devices.</p>
-          <p>I am always eager to learn new tools and techniques to keep my skills current and deliver high-quality solutions that exceed client expectations.</p>
+          <p>I am a passionate and detail-oriented full-stack developer with a strong foundation in both front-end and back-end technologies. On the front end, I work with HTML, CSS, JavaScript, and modern frameworks like React to build responsive, user-friendly interfaces. On the back end, I leverage tools such as Node.js, Express, and databases like MongoDB and MySQL to create secure, scalable, and efficient applications.</p>
+          <p>I enjoy developing end-to-end solutions that provide seamless user experiences while ensuring robust functionality behind the scenes. I am always eager to learn new technologies and frameworks to keep my skills up to date and deliver high-quality solutions that exceed client expectations.</p>
           <h3>My Skills</h3>
+
           <div class="skills-container">
             <span class="skill-tag"><i class="fab fa-html5"></i> HTML5</span>
-            <span class="skill-tag"><i class="fab fa-tailwind"></i>Tailwind</span>
+            <span class="skill-tag"><i class="fas fa-wind"></i> Tailwind</span>
             <span class="skill-tag"><i class="fab fa-css3-alt"></i> CSS3</span>
             <span class="skill-tag"><i class="fab fa-js"></i> JavaScript</span>
             <span class="skill-tag"><i class="fab fa-react"></i> React</span>
+            <span class="skill-tag"><i class="fas fa-leaf"></i> Spring boot</span>
+            <span class="skill-tag"><i class="fab fa-python"></i> Django</span>
             <span class="skill-tag"><i class="fab fa-node-js"></i> Node.js</span>
+            <span class="skill-tag"><i class="fas fa-server"></i> Next</span>
             <span class="skill-tag"><i class="fas fa-database"></i> MongoDB</span>
             <span class="skill-tag"><i class="fab fa-git-alt"></i> Git</span>
             <span class="skill-tag"><i class="fas fa-mobile-alt"></i> Responsive Design</span>
@@ -1149,15 +1364,16 @@
             </div>
             <span class="experience-period">2023 -2024</span>
           </div>
-          <p class="experience-description"
-            Develop responsive web applications using React.js and modern CSS frameworks. Collaborate with UX designers to implement pixel-perfect interfaces and optimize performance for better user experience.
+          <p class="experience-description">
+            Assisted in developing and maintaining client websites. Implemented new features and fixed bugs. Gained experience in working with cross-functional teams and meeting project deadlines.
         </p>
-          <div class="experience-skills">
-            <span class="experience-skill">React</span>
-            <span class="experience-skill">TypeScript</span>
-            <span class="experience-skill">Redux</span>
-            <span class="experience-skill">Styled Components</span>
+        <div class="experience-skills">
+            <span class="experience-skill">HTML/CSS</span>
+            <span class="experience-skill">JavaScript</span>
+            <span class="experience-skill">WordPress</span>
+            <span class="experience-skill">PHP</span>
           </div>
+          
         </div>
         
         <div class="experience-item">
@@ -1166,16 +1382,20 @@
               <h3 class="experience-title">IS officer</h3>
               <p class="experience-company">Amhara Bank</p>
             </div>
-            <span class="experience-period">2021 - 2022</span>
+            <span class="experience-period">2024 - current</span>
           </div>
           <p class="experience-description">
-            Assisted in developing and maintaining client websites. Implemented new features and fixed bugs. Gained experience in working with cross-functional teams and meeting project deadlines.
+            Design and develop responsive web applications using the MERN stack (MongoDB, Express.js, React.js, Node.js). Build and integrate RESTful APIs, manage databases, and implement authentication for secure and scalable applications. Collaborate with UX designers to create pixel-perfect interfaces and optimize both front-end and back-end performance to deliver seamless user experiences.
           </p>
           <div class="experience-skills">
-            <span class="experience-skill">HTML/CSS</span>
-            <span class="experience-skill">JavaScript</span>
-            <span class="experience-skill">WordPress</span>
-            <span class="experience-skill">PHP</span>
+            <span class="experience-skill">React</span>
+            <span class="experience-skill">TypeScript</span>
+            <span class="experience-skill">Redux</span>
+            <span class="experience-skill">Tailwind</span>
+            <span class="experience-skill">MongoDB</span>
+            <span class="experience-skill">Express</span>
+            <span class="experience-skill">Node.js</span>
+            <span class="experience-skill">Spring boot</span>
           </div>
         </div>
         
@@ -1225,7 +1445,7 @@
         </div>
         
         <div class="project-card">
-          <img src="./images/txn/txnD.jpg" alt="EduPortal" class="project-image">
+          <img src="./files/txn.jpg" alt="txn-image" class="project-image">
           <div class="project-content">
             <h3 class="project-title">Transaction dashboard</h3>
             <p class="project-description">A comprehensive financial dashboard for tracking, analyzing, and visualizing transactions with advanced filtering, categorization, and reporting capabilities.</p>
@@ -1241,14 +1461,15 @@
         </div>
         
         <div class="project-card">
-          <img src="" alt="SkillSync" class="project-image">
+          <img src="./files/pms.jpg" alt="SkillSync" class="project-image">
           <div class="project-content">
             <h3 class="project-title">Project management Tool</h3>
-            <p class="project-description">A job-matching app that connects users to gigs based on their skillsets with smart matching algorithms.</p>
+            <p class="project-description">A project management tool that helps teams plan, organize, and track tasks efficiently with smart scheduling and collaboration features.</p>
             <div class="project-tags">
-              <span class="project-tag">React Native</span>
+              <span class="project-tag">React</span>
               <span class="project-tag">Express</span>
-              <span class="project-tag">PostgreSQL</span>
+              <span class="project-tag">MySQL</span>
+              <span class="project-tag">Spring boot</span>
             </div>
             <a href="./pms.html" class="project-link">
               View Project <i class="fas fa-arrow-right"></i>
@@ -1270,24 +1491,25 @@
           <h3>Let's Create Something Amazing Together</h3>
         </div>
         
-        <form class="contact-form">
+        <form action="https://formspree.io/f/mandlawr" method="POST" class="contact-form">
           <div class="form-group">
             <label class="form-label">Name</label>
-            <input type="text" class="form-input" placeholder="Enter your full name" required>
+            <input type="text" name="name" class="form-input" placeholder="Enter your full name" required>
           </div>
-          
+
           <div class="form-group">
             <label class="form-label">Email</label>
-            <input type="email" class="form-input" placeholder="Enter your email address" required>
+            <input type="email" name="email" class="form-input" placeholder="Enter your email address" required>
           </div>
-          
+
           <div class="form-group">
             <label class="form-label">Message</label>
-            <textarea class="form-input" placeholder="Tell me about your project or inquiry" required></textarea>
+            <textarea name="message" class="form-input" placeholder="Tell me about your project or inquiry" required></textarea>
           </div>
-          
+
           <button type="submit" class="submit-btn">Send Message</button>
         </form>
+
       </div>
     </div>
   </section>
@@ -1303,10 +1525,9 @@
           </a>
           <p class="footer-description">Crafting digital experiences that are both beautiful and functional.</p>
           <div class="social-links">
-            <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
-            <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
-            <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+            <a href="https://t.me/Dagi21121" class="social-link"><i class="fab fa-telegram"></i></a>
+            <a href="https://www.linkedin.com/in/dagmawit-bekele1221" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://github.com/dagmawitbekele" class="social-link"><i class="fab fa-github"></i></a>
           </div>
         </div>
         
@@ -1373,6 +1594,7 @@
         navLinks.classList.remove('active');
       });
     });
+    
   </script>
 </body>
 </html>
